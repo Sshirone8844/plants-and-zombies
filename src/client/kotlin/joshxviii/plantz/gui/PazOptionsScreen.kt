@@ -114,6 +114,6 @@ class PazOptionsScreen(private val parent: Screen? = null) : Screen(Component.tr
     }
 
     override fun onClose() {
-        Minecraft.getInstance().gui.setScreen(parent)
+        Minecraft.getInstance().setScreen(parent)
     }
 }

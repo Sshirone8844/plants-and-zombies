@@ -100,14 +100,14 @@ class LetterScreen(
             )
             addRenderableWidget(
                 Button.builder(Component.translatable("gui.plantz.letter.sign")) {
-                    Minecraft.getInstance().gui.setScreen(
+                    Minecraft.getInstance().setScreen(
                         ConfirmScreen(
                             { confirmed ->
                                 if (confirmed) {
                                     saveChanges(true)
                                     onClose()
                                 } else {
-                                    Minecraft.getInstance().gui.setScreen(this)
+                                    Minecraft.getInstance().setScreen(this)
                                 }
                             },
                             Component.translatable("gui.plantz.letter.confirm_title"),

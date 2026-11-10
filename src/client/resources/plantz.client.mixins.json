@@ -11,7 +11,7 @@
   "mixins": [
     "AvatarRendererMixin",
     "BossHealthOverlayMixin",
-    "HudMixin",
+    "GuiMixin",
     "HumanoidModelMixin",
     "LivingEntityRendererMixin",
     "NowPlayingToastMixin",

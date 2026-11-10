@@ -7,14 +7,24 @@ name: build
 on:
   pull_request:
     paths:
-      - 'src/main/resources/fabric.mod.json'
+      - 'src/**'
+      - '*.gradle'
+      - 'gradle.properties'
+      - 'gradle/**'
+      - 'gradlew*'
+      - '.github/workflows/build.yml'
       - 'src/main/java/**'
       - 'src/main/kotlin/**'
       - 'src/client/java/**'
       - 'src/client/kotlin/**'
   push:
     paths:
-      - 'src/main/resources/fabric.mod.json'
+      - 'src/**'
+      - '*.gradle'
+      - 'gradle.properties'
+      - 'gradle/**'
+      - 'gradlew*'
+      - '.github/workflows/build.yml'
       - 'src/main/java/**'
       - 'src/main/kotlin/**'
       - 'src/client/java/**'
@@ -33,7 +43,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '25'
-          distribution: 'microsoft'
+          distribution: 'temurin'
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: build

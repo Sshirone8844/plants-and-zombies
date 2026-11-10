@@ -8,7 +8,6 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.Hud;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
@@ -28,8 +27,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * @author Josh
  */
-@Mixin(Hud.class)
-public abstract class HudMixin {
+@Mixin(Gui.class)
+public abstract class GuiMixin {
 
     @Shadow
     protected abstract void extractTextureOverlay(GuiGraphicsExtractor graphics, Identifier texture, float alpha);
@@ -47,7 +46,7 @@ public abstract class HudMixin {
     @Shadow
     private int toolHighlightTimer;
 
-    @Inject(method = "extractRenderState", at = @At("HEAD"))
+    @Inject(method = "extractHotbarAndDecorations", at = @At("HEAD"))
     public void displayStoredSun(GuiGraphicsExtractor graphics, DeltaTracker deltaTracker, CallbackInfo ci) {
         SunInfoHud.INSTANCE.extractRenderState(graphics, deltaTracker, this.lastToolHighlight, this.toolHighlightTimer);
     }
