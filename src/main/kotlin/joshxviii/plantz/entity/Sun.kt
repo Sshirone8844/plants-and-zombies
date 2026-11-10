@@ -290,9 +290,8 @@ class Sun(type: EntityType<out Sun>, level: Level) : Entity(type, level) {
 
     override fun getSoundSource(): SoundSource = SoundSource.AMBIENT
 
-    override fun createInterpolationHandler(): InterpolationHandler {
-        return LinearInterpolationHandler.create(this, 2)
-    }
+    private val interpolation = InterpolationHandler(this, 2)
+    override fun getInterpolation(): InterpolationHandler = interpolation
 
     override fun addAdditionalSaveData(output: ValueOutput) {
         output.putShort("Age", age.toShort())

@@ -29,6 +29,7 @@ import joshxviii.plantz.PazTags.ItemTags.BUCKET_WEARABLE
 import joshxviii.plantz.entity.zombie.PazZombie
 import joshxviii.plantz.item.*
 import joshxviii.plantz.item.component.*
+import net.fabricmc.fabric.api.registry.FuelValueEvents
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents
 import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry
 import net.minecraft.core.Direction
@@ -58,7 +59,6 @@ import net.minecraft.world.item.Items.GLASS_BOTTLE
 import net.minecraft.world.item.component.BlocksAttacks
 import net.minecraft.world.item.component.BlocksAttacks.DamageReduction
 import net.minecraft.world.item.component.BlocksAttacks.ItemDamageFunction
-import net.minecraft.world.item.component.CookingFuel
 import net.minecraft.world.item.component.ItemAttributeModifiers
 import net.minecraft.world.item.component.UseCooldown
 import net.minecraft.world.item.enchantment.Enchantable
@@ -68,11 +68,6 @@ import net.minecraft.world.item.equipment.EquipmentAssets
 import net.minecraft.world.item.equipment.Equippable
 import net.minecraft.world.level.block.ComposterBlock
 import net.minecraft.world.level.block.DispenserBlock
-import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProviders
-import net.minecraft.world.level.storage.loot.providers.number.floats.ResolvableFloat
-import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider
-import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders
-import net.minecraft.world.level.storage.loot.providers.number.ints.ResolvableInt
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 import java.util.*
@@ -84,7 +79,6 @@ object PazItems {
     val SUN: Item = registerItem(
         "sun", ::SunItem,
         properties = Item.Properties()
-            .cookingFuel(ContextIntProviders.COOKING_TIME_BAMBOO)
     )
     @JvmField
     val SUN_BOTTLE: Item = registerItem(
@@ -138,11 +132,6 @@ object PazItems {
     val NEWSPAPER: Item = registerItem(
         "newspaper", ::NewspaperItem,
         properties = Item.Properties()
-            .component(DataComponents.COOKING_FUEL,
-                CookingFuel(
-                    ResolvableInt.Constant(1),
-                    ResolvableFloat.fromKey(ContextFloatProviders.COOKING_DEFAULT_SPEED_MULTIPLIER)
-                ))
             .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)
             .delayedComponent(DataComponents.BLOCKS_ATTACKS, {
                 BlocksAttacks(
@@ -471,6 +460,11 @@ object PazItems {
     }
 
     fun initialize() {
+        FuelValueEvents.BUILD.register { builder, context ->
+            builder.add(SUN, (context.baseSmeltTime() * 0.5).toInt())
+            builder.add(NEWSPAPER, context.baseSmeltTime())
+        }
+
         // Modify components
         ItemComponentTooltipProviderRegistry.addFirst(PazComponents.PROTECTS_HEAD)
         ItemComponentTooltipProviderRegistry.addFirst(PazComponents.WORN_BODY_BLOCKER)

@@ -5,7 +5,6 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.biome.Biome
-import net.minecraft.world.level.levelgen.material.rule.MaterialRule
 
 
 object PazWorldGen {
@@ -20,11 +19,6 @@ object PazWorldGen {
 
     private fun registerBiome(name: String) : ResourceKey<Biome> {
         return ResourceKey.create(Registries.BIOME, pazResource(name) )
-    }
-
-    @JvmField val GRAVEYARD_MATERIAL = registerMaterialRule("graveyard")
-    private fun registerMaterialRule(name: String) : ResourceKey<MaterialRule> {
-        return ResourceKey.create(Registries.MATERIAL_RULE, pazResource(name) )
     }
 
     @JvmField val TIME_SPACE = ResourceKey.create(Registries.DIMENSION, pazResource("time_space"))

@@ -11,7 +11,10 @@ import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 
 class ConeBlock(properties: Properties) : Block(properties) {
+    override fun codec(): MapCodec<out ConeBlock> = CODEC
+
     companion object {
+        val CODEC: MapCodec<ConeBlock> = simpleCodec(::ConeBlock)
         val SHAPE: VoxelShape = Util.make {
             Shapes.or(
                 column(12.0, 0.0, 2.0),

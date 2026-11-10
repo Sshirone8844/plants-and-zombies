@@ -206,7 +206,7 @@ abstract class PazProjectile(
         return ProjectileUtil.getManyEntityHitResult(
             this.level(), this, from, to,
             this.boundingBox.expandTowards(this.deltaMovement),
-            canHitPredicate, false, true
+            canHitPredicate, true
         )
     }
 

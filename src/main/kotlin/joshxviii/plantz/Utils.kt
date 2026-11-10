@@ -299,7 +299,7 @@ fun Player.getItemCount(itemType: Item): Int = inventory.countItem(itemType)
 
 fun Player.removeItemFromInventory(itemType: Item?, amount: Int = 1): Int {
     if(itemType == null || itemType == Items.AIR) return 0
-    return inventory.clearOrCountMatchingItems({ it.`is`(itemType) }, false, amount, inventoryMenu.getCraftSlots())
+    return inventory.clearOrCountMatchingItems({ it.`is`(itemType) }, amount, inventoryMenu.getCraftSlots())
 }
 
 fun clampYRot(yaw: Float): Float = Direction.fromYRot(yaw.toDouble()).toYRot()

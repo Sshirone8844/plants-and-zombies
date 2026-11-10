@@ -81,7 +81,8 @@ class Balloon(
         if (timeUnleashed > 2400) pop()
     }
 
-    override fun createInterpolationHandler(): InterpolationHandler = LinearInterpolationHandler.create(this)
+    private val interpolation = InterpolationHandler(this)
+    override fun getInterpolation(): InterpolationHandler = interpolation
 
     override fun save(output: ValueOutput): Boolean {
         output.putInt("unleash_time", timeUnleashed)

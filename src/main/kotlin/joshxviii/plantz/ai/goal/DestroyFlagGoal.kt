@@ -92,9 +92,9 @@ class DestroyFlagGoal(
         if (flagPos.distSqr(mob.blockPosition()) > reach) Vec3.atCenterOf(flagPos).let { mob.moveControl.setWantedPosition(it.x, it.y, it.z, 1.0) }
         val canReach = mob.navigation.path?.canReachTarget(flagPos) == true
         if (flagPos.distSqr(mob.blockPosition()) < if (canReach) reach else reach*reach) {
-            if (!mob.isSwinging) {
+            if (!mob.swinging) {
                 damageFlag(flagPos)
-                mob.swingForAttack(mob.usedItemHand)
+                mob.swing(mob.usedItemHand)
             }
         }
     }

@@ -2,18 +2,17 @@ package joshxviii.plantz.advancement
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import net.minecraft.core.Holder
+import net.minecraft.advancements.criterion.ContextAwarePredicate
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition
 import java.util.Optional
 
 class SimpleCheckCriteria(
-    playerCtx: Optional<Holder<LootItemCondition>>,
+    playerCtx: Optional<ContextAwarePredicate>,
 ): SimpleCriterionCondition<Boolean>(playerCtx) {
 
     companion object {
         val CODEC: Codec<SimpleCheckCriteria> = RecordCodecBuilder.create { it.group(
-            LootItemCondition.CODEC.optionalFieldOf("player").forGetter(SimpleCheckCriteria::playerCtx)
+            ContextAwarePredicate.CODEC.optionalFieldOf("player").forGetter(SimpleCheckCriteria::playerCtx)
         ).apply(it, ::SimpleCheckCriteria) }
     }
 

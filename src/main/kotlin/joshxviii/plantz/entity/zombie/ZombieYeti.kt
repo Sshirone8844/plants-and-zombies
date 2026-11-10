@@ -70,7 +70,7 @@ class ZombieYeti(type: EntityType<out ZombieYeti>, level: Level) : PazZombie(typ
             velocity = 1.0,
             inaccuracy = 1.2f,
             actionSuccessEffect = {
-                this.swingForAttack(this.usedItemHand)
+                this.swing(this.usedItemHand)
             },
             actionPredicate = { it.random.nextDouble() < 0.25
                                 && it.target!=null
@@ -100,7 +100,7 @@ class ZombieYeti(type: EntityType<out ZombieYeti>, level: Level) : PazZombie(typ
 
     override fun tick() {
         super.tick()
-        if (bashTime>0 || isSwinging) {
+        if (bashTime>0 || swinging) {
             bashAnimation.startIfStopped(tickCount)
             if (bashTime++>20) {
                 bashAnimation.stop()

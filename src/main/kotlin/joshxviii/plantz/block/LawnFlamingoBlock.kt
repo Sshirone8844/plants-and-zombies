@@ -32,7 +32,10 @@ import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 
 class LawnFlamingoBlock(properties: Properties) : HorizontalDirectionalBlock(properties), SimpleWaterloggedBlock {
+    override fun codec(): MapCodec<out LawnFlamingoBlock> = CODEC
+
     companion object {
+        val CODEC: MapCodec<LawnFlamingoBlock> = simpleCodec(::LawnFlamingoBlock)
         val SHAPE: VoxelShape = Util.make {
             Shapes.or(
                 column(6.0, 0.0, 14.0),

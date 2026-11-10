@@ -29,7 +29,10 @@ import net.minecraft.world.phys.shapes.Shapes
 import net.minecraft.world.phys.shapes.VoxelShape
 
 class GravestoneBlock(properties: Properties) : BaseEntityBlock(properties), SimpleWaterloggedBlock {
+    override fun codec(): MapCodec<out GravestoneBlock> = CODEC
+
     companion object {
+        val CODEC: MapCodec<GravestoneBlock> = simpleCodec(::GravestoneBlock)
         val SHAPE: VoxelShape = Util.make {
             Shapes.or(
                 column(16.0, 6.0, 0.0, 2.0),

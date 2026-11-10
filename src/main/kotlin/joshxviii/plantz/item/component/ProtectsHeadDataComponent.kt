@@ -7,7 +7,7 @@ import net.minecraft.ChatFormatting
 import net.minecraft.core.HolderSet
 import net.minecraft.core.component.DataComponentGetter
 import net.minecraft.core.registries.Registries
-import net.minecraft.core.registries.codec.RegistryCodecs
+import net.minecraft.core.RegistryCodecs
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.Component
 import net.minecraft.network.codec.ByteBufCodecs
@@ -124,7 +124,7 @@ class ProtectsHeadDataComponent(
         companion object {
             val CODEC: Codec<DamageReduction> = RecordCodecBuilder.create { inst ->
                 inst.group(
-                    RegistryCodecs.holderSet(Registries.DAMAGE_TYPE).optionalFieldOf("type").forGetter { it.type },
+                    RegistryCodecs.homogeneousList(Registries.DAMAGE_TYPE).optionalFieldOf("type").forGetter { it.type },
                     Codec.FLOAT.fieldOf("base").forGetter { it.base },
                     Codec.FLOAT.fieldOf("factor").forGetter { it.factor }
                 ).apply(inst, ::DamageReduction)

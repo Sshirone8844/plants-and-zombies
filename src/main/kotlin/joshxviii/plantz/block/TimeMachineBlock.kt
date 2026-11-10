@@ -41,7 +41,10 @@ import net.minecraft.world.phys.shapes.VoxelShape
 import java.util.function.ToIntFunction
 
 class TimeMachineBlock(properties: Properties) : BaseEntityBlock(properties), SimpleWaterloggedBlock  {
+    override fun codec(): MapCodec<out TimeMachineBlock> = CODEC
+
     companion object {
+        val CODEC: MapCodec<TimeMachineBlock> = simpleCodec(::TimeMachineBlock)
         val SHAPE: VoxelShape = Util.make {
             Shapes.or(column(16.0, 0.0, 6.0))
         }

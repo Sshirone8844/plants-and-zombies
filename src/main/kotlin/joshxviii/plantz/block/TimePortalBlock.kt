@@ -39,7 +39,10 @@ import kotlin.math.max
 
 class TimePortalBlock(properties: Properties) : BaseEntityBlock(properties), SimpleWaterloggedBlock, Portal {
 
+    override fun codec(): MapCodec<out TimePortalBlock> = CODEC
+
     companion object {
+        val CODEC: MapCodec<TimePortalBlock> = simpleCodec(::TimePortalBlock)
         val SHAPES = Shapes.rotateAll(column(16.0, 2.0, 0.0, 16.0))
 
         val FACING: EnumProperty<Direction> = DirectionalBlock.FACING

@@ -230,7 +230,7 @@ class RoboZombie(type: EntityType<out RoboZombie>, level: Level) : PazZombie(typ
             }
         }
 
-        if (bashTime>0 || isSwinging) {
+        if (bashTime>0 || swinging) {
             bashAnimation.startIfStopped(tickCount)
             if (bashTime++>20) {
                 bashAnimation.stop()

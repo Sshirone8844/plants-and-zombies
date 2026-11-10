@@ -41,7 +41,10 @@ import net.minecraft.world.phys.shapes.VoxelShape
 import java.util.function.ToIntFunction
 
 class SunBatteryBlock(properties: Properties) : BaseEntityBlock(properties), SimpleWaterloggedBlock  {
+    override fun codec(): MapCodec<out SunBatteryBlock> = CODEC
+
     companion object {
+        val CODEC: MapCodec<SunBatteryBlock> = simpleCodec(::SunBatteryBlock)
         val FACE: EnumProperty<AttachFace> = BlockStateProperties.ATTACH_FACE
         val FACING: EnumProperty<Direction> = HorizontalDirectionalBlock.FACING
         val WATERLOGGED: BooleanProperty = BlockStateProperties.WATERLOGGED

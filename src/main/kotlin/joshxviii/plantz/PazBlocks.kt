@@ -65,7 +65,7 @@ object PazBlocks {
             .sound(SoundType.LANTERN)
             .strength(0.18F)
             .noOcclusion()
-            .pushReaction(PushReaction.POPPED),
+            .pushReaction(PushReaction.DESTROY),
         ::WateringCanBlock,
         null
     )
@@ -75,7 +75,7 @@ object PazBlocks {
             .sound(SoundType.COPPER_BULB)
             .strength(0.25F)
             .noOcclusion()
-            .pushReaction(PushReaction.IMMOVEABLE)
+            .pushReaction(PushReaction.BLOCK)
             .lightLevel(SunBatteryBlock.LIGHT_EMISSION),
         ::SunBatteryBlock,
         null
@@ -91,7 +91,7 @@ object PazBlocks {
             .sound(SoundType.COPPER_GRATE)
             .strength(0.7F)
             .noOcclusion()
-            .pushReaction(PushReaction.IMMOVEABLE)
+            .pushReaction(PushReaction.BLOCK)
             .lightLevel(TimeMachineBlock.LIGHT_EMISSION),
         ::TimeMachineBlock,
         Item.Properties()
@@ -114,7 +114,7 @@ object PazBlocks {
             .strength(-1.0f)
             .sound(SoundType.GLASS)
             .lightLevel{ 15 }
-            .pushReaction(PushReaction.IMMOVEABLE)
+            .pushReaction(PushReaction.BLOCK)
             .randomTicks(),
         ::TimePortalBlock,
         null,
@@ -204,7 +204,7 @@ object PazBlocks {
             .sound(SoundType.CANDLE)
             .instabreak()
             .noOcclusion()
-            .pushReaction(PushReaction.POPPED),
+            .pushReaction(PushReaction.DESTROY),
         ::ConeBlock,
         Item.Properties()
             .enchantable(10)
@@ -278,7 +278,7 @@ object PazBlocks {
             .mapColor(BRAINZ_ALLOY_BLOCK.defaultMapColor())
             .strength(5.0f)
             .noOcclusion()
-            .pushReaction(PushReaction.POPPED),
+            .pushReaction(PushReaction.DESTROY),
         { DoorBlock(BlockSetType.COPPER, it) },
     )
     @JvmField val BRAINZ_ALLOY_TRAPDOOR: Block = registerBlock(
@@ -298,7 +298,7 @@ object PazBlocks {
             .sound(SoundType.WOOD)
             .instabreak()
             .noCollision()
-            .pushReaction(PushReaction.POPPED),
+            .pushReaction(PushReaction.DESTROY),
         ::FlagBlock,
         Item.Properties()
             .stacksTo(16)
@@ -328,7 +328,7 @@ object PazBlocks {
             .sound(SoundType.WOOD)
             .instabreak()
             .noCollision()
-            .pushReaction(PushReaction.POPPED),
+            .pushReaction(PushReaction.DESTROY),
         ::FlagBlock,
         Item.Properties()
             .stacksTo(16)
@@ -359,7 +359,7 @@ object PazBlocks {
         BlockBehaviour.Properties.of()
             .sound(SoundType.TUFF_BRICKS)
             .strength(23.5F)
-            .pushReaction(PushReaction.IMMOVEABLE)
+            .pushReaction(PushReaction.BLOCK)
             .requiresCorrectToolForDrops(),
         ::GravestoneBlock,
     )
@@ -412,7 +412,7 @@ object PazBlocks {
             .sound(SoundType.DECORATED_POT)
             .strength(1.8F)
             .noOcclusion()
-            .pushReaction(PushReaction.POPPED)
+            .pushReaction(PushReaction.DESTROY)
     }
 
     private fun mailboxProperties(mapColor: MapColor = MapColor.SNOW): BlockBehaviour.Properties {
@@ -421,7 +421,7 @@ object PazBlocks {
             .sound(SoundType.LANTERN)
             .strength(1.3F)
             .noOcclusion()
-            .pushReaction(PushReaction.IMMOVEABLE)
+            .pushReaction(PushReaction.BLOCK)
     }
 
     fun initialize() {

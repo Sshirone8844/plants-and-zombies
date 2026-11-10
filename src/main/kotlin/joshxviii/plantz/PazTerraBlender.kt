@@ -1,6 +1,12 @@
 package joshxviii.plantz
 
 import com.mojang.datafixers.util.Pair
+import joshxviii.plantz.PazWorldGen.GRAVEYARD
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.levelgen.SurfaceRules
+import net.minecraft.world.level.levelgen.SurfaceRules.RuleSource
+import net.minecraft.world.level.levelgen.placement.CaveSurface
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.level.biome.Biome
@@ -13,7 +19,7 @@ import java.util.function.Consumer
 internal object PazTerraBlender {
     fun register() {
         Regions.register(OverworldRegion("graveyard"))
-        MaterialRuleManager.addRules(MaterialRuleManager.RuleCategory.OVERWORLD, PazMain.MODID, PazWorldGen.GRAVEYARD_MATERIAL)
+        SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, PazMain.MODID, SurfaceRuleData.makeRules())
     }
 }
 
@@ -38,5 +44,49 @@ class OverworldRegion(
             .build().forEach(Consumer { point: ParameterPoint? -> builder.add(point, PazWorldGen.GRAVEYARD) })
 
         builder.build().forEach(mapper)
+    }
+}
+
+object SurfaceRuleData {
+    private val DIRT = makeStateRule(Blocks.DIRT)
+    private val MYCELIUM_BLOCK = makeStateRule(Blocks.MYCELIUM)
+    private val STONE = makeStateRule(Blocks.STONE)
+
+    internal fun makeRules(): RuleSource {
+        val isAtOrAboveWaterLevel = SurfaceRules.waterBlockCheck(-1, 0)
+
+        val myceliumSurface = SurfaceRules.sequence(
+            SurfaceRules.ifTrue(
+                SurfaceRules.ON_FLOOR,
+                MYCELIUM_BLOCK
+            ),
+            SurfaceRules.ifTrue(
+                SurfaceRules.UNDER_FLOOR,
+                DIRT
+            ),
+            SurfaceRules.ifTrue(
+                SurfaceRules.stoneDepthCheck(2, true, 0, CaveSurface.FLOOR),
+                STONE
+            )
+        )
+
+        val undergroundStone = SurfaceRules.ifTrue(
+            SurfaceRules.stoneDepthCheck(3, true, 0, CaveSurface.FLOOR),
+            STONE
+        )
+
+        return SurfaceRules.sequence(
+            SurfaceRules.ifTrue(
+                SurfaceRules.isBiome(GRAVEYARD),
+                SurfaceRules.sequence(
+                    myceliumSurface,
+                    undergroundStone
+                )
+            )
+        )
+    }
+
+    private fun makeStateRule(block: Block): RuleSource {
+        return SurfaceRules.state(block.defaultBlockState())
     }
 }

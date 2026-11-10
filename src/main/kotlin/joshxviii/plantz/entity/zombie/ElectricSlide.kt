@@ -127,7 +127,7 @@ class ElectricSlide(type: EntityType<out ElectricSlide>, level: Level) : PazZomb
             usePredicate = { meleeTime<=0 },
             actionStartEffect = {
                 meleeTime = 1
-                swingForAttack(usedItemHand)
+                swing(usedItemHand)
             }
         ))
         goalSelector.addGoal(4, BeamAttackGoal(
